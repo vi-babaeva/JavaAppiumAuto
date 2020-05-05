@@ -37,6 +37,43 @@ public class FirstTest {
     }
 
     @Test
+    public void testHomeworkCancelSearch(){
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/fragment_onboarding_skip_button"),
+                "Cannot find 'Skip' button",
+                5);
+
+        waitForElementAndClick(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                "Cannot find element_to_init_search",
+                5);
+
+        // ищет какое-то слово
+        waitForElementAndSendKeys(
+                By.id("org.wikipedia:id/search_src_text"),
+                "Android",
+                "Cannot find search input",
+                5);
+
+        // убеждается, что найдено несколько статей
+        Assert.assertTrue( "Less than 3 articles found",
+                driver.findElementsById("org.wikipedia:id/page_list_item_title").size()>2);
+
+        // отменяет поиск
+        waitForElementAndClear(
+                By.id("org.wikipedia:id/search_src_text"),
+                "Cannot find search input",
+                5);
+
+        // убеждается, что результат поиска пропал
+        waitForElementNotPresent(
+                By.id("org.wikipedia:id/search_results_list"),
+                "Search results is still present on page",
+                5);
+    }
+
+
+    @Test
     public void firstTest(){
         waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'SKIP')]"),
