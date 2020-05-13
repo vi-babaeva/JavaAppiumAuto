@@ -6,3 +6,5 @@ apks/.DS_Store
 *.class
 apks/.DS_Store
 *.class
+out/production/JavaAppiumAuto/FirstTest.class
+*.class
