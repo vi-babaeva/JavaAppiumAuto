@@ -435,6 +435,39 @@ public class FirstTest {
                 "We've found some results by request " + search_line);
     }
 
+    @Test
+    public void assertTitle(){
+        waitForElementAndClick(
+                By.xpath("//*[contains(@text, 'SKIP')]"),
+                "Cannot find 'Skip' button",
+                1);
+
+        waitForElementAndClick(
+                By.xpath("//android.widget.ImageView[@content-desc=\"Search Wikipedia\"]"),
+                "Cannot find element_to_init_search",
+                5);
+
+        String search_line = "Java";
+
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                search_line,
+                "Cannot find search input",
+                5);
+
+        waitForElementAndClick(
+                By.xpath("//*[@text='Object-oriented programming language']"),
+                "Cannot find 'Object-oriented programming language' topic searching by 'Java'",
+                15);
+
+        String search_result_locator = "//*[@text='Java (programming language)']";
+
+        assertElementPresent(
+                By.xpath(search_result_locator),
+                "as title article by topic " + search_line);
+
+    }
+
     private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.withMessage(error_message + "\n");
@@ -533,6 +566,14 @@ public class FirstTest {
         int amount_of_elements = getAmountOfElements(by);
         if (amount_of_elements > 0 ) {
             String default_message = "An element '" + by.toString() + "' supposed to be not present";
+            throw new AssertionError(default_message + " " + error_message);
+        }
+    }
+
+    private void assertElementPresent(By by, String error_message){
+        int amount_of_elements = getAmountOfElements(by);
+        if (amount_of_elements == 0 ) {
+            String default_message = "An element '" + by.toString() + "' cannon found";
             throw new AssertionError(default_message + " " + error_message);
         }
     }
