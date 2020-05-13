@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.util.List;
 
 public class FirstTest {
 
@@ -367,6 +368,40 @@ public class FirstTest {
 
     }
 
+    @Test
+    public void testAmountOfNotEmptySearch(){
+        waitForElementAndClick(
+                By.xpath("//*[contains(@text, 'SKIP')]"),
+                "Cannot find 'Skip' button",
+                1);
+
+        waitForElementAndClick(
+                By.xpath("//android.widget.ImageView[@content-desc=\"Search Wikipedia\"]"),
+                "Cannot find element_to_init_search",
+                5);
+
+        String search_line = "Linkin Park Discography";
+
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                search_line,
+                "Cannot find search input",
+                5);
+
+        String search_result_locator = "//*[@resource-id='org.wikipedia:id/search_results_list']//*[@text='Linkin Park discography']";
+        waitForElementPresent(
+                By.xpath(search_result_locator),
+                "Cannot find anything by the request" +  search_line,
+                15);
+
+        int amount_of_search_results = getAmountOfElements(
+                By.xpath(search_result_locator));
+
+        Assert.assertTrue(
+                "We found too few results!",
+                amount_of_search_results > 0 );
+    }
+
     private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.withMessage(error_message + "\n");
@@ -455,4 +490,12 @@ public class FirstTest {
                 .release()
                 .perform();
     }
+
+    private int getAmountOfElements(By by) {
+        List elements = driver.findElements(by);
+        return elements.size();
+    }
+
+
+
 }
