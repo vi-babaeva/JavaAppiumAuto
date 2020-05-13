@@ -527,8 +527,36 @@ public class FirstTest {
                 "Article title have been changed after second screen rotation",
                 title_before_location,
                 title_after_second_rotation);
-
     }
+
+    @Test
+    public void testEx4(){
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/fragment_onboarding_skip_button"),
+                "Cannot find 'Skip' button",
+                1);
+
+        waitForElementAndClick(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                "Cannot find 'Search Wikipedia' field",
+                5);
+
+        String search_value = "Java";
+        waitForElementAndSendKeys(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                search_value,
+                "Cannot find search input",
+                5);
+
+        List<WebElement> elements = driver.findElementsById("org.wikipedia:id/page_list_item_title");
+        for (WebElement e : elements)
+        {
+            String search_value_lower_case = search_value.toLowerCase();
+            Assert.assertTrue("'" + search_value + "' word is not found in search result",
+                    e.getText().toLowerCase().contains(search_value_lower_case));
+        }
+    }
+
 
     private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
