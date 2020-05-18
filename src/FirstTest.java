@@ -1,7 +1,5 @@
 import lib.CoreTestCase;
-import lib.ui.ArticlePageObject;
-import lib.ui.MainPageObject;
-import lib.ui.SearchPageObject;
+import lib.ui.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -60,7 +58,7 @@ public class FirstTest extends CoreTestCase {
     }
 
      @Test
-     public void testCompareArticleTitle(){
+     public void testCompareArticleSubtitle(){
          SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
          SearchPageObject.skipClick();
@@ -95,164 +93,38 @@ public class FirstTest extends CoreTestCase {
     //Ex5
     @Test
     public void testSaveTwoArticlesToTestListAndDeleteOneArticle(){
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text, 'SKIP')]"),
-                "Cannot find 'Skip' button",
-                1);
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.ImageView[@content-desc=\"Search Wikipedia\"]"),
-                "Cannot find element_to_init_search",
-                5);
+        SearchPageObject.skipClick();
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
 
-        MainPageObject.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-                "Java",
-                "Cannot find search input",
-                5);
+        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject.waitForSubtitleElement();
+        String name_of_folder = "Test list";
+        ArticlePageObject.addFirstArticleToMyList(name_of_folder);
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[@index='2']//*[@text='Object-oriented programming language']"),
-                "Cannot find 'Object-oriented programming language' topic searching by 'Java'",
-                20);
+        MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
+        MyListsPageObject.openFolderByName(name_of_folder);
 
-        MainPageObject.waitForElementPresent(
-                By.xpath("//*[contains(@text, 'Java (programming language)')]"),
-                "Cannot find 'Java (programming language)' title",
-                20);
+        NavigationUI NavigationUI = new NavigationUI(driver);
+        NavigationUI.goBackToAddNewArticle(name_of_folder);
 
-        MainPageObject.waitForElementAndClick(
-                By.id("org.wikipedia:id/page_toolbar_button_show_overflow_menu"),
-                "Cannot find 'More options' button",
-                10);
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.clickByArticleWithSubstring("High-level programming language");
+        ArticlePageObject.addSecondArticleToMyList(name_of_folder);
+        MyListsPageObject.openFolderByName(name_of_folder);
+        NavigationUI.goToMyList();
+        ArticlePageObject.swipeToDeleteOneArticleAndCheckIt();
 
-        MainPageObject.waitForElementAndClick(
-                By.id("org.wikipedia:id/page_action_overflow_reading_lists"),
-                "Cannot find 'My lists'",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.TextView[@content-desc=\"More options\"]"),
-                "Cannot find 'More options' button on 'My lists' screen",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.id("org.wikipedia:id/reading_lists_overflow_create_new_list"),
-                "Cannot find 'Create new list'",
-                5);
-
-        MainPageObject.waitForElementAndClear(
-                By.id("org.wikipedia:id/text_input"),
-                "Cannot clear title 'My reading list'",
-                5);
-
-        MainPageObject.waitForElementAndSendKeys(
-                By.id("org.wikipedia:id/text_input"),
-                "Test list",
-                "Cannot input title list",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.id("android:id/button1"),
-                "Cannot find 'OK' button",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.id("org.wikipedia:id/tabsCountText"),
-                "Cannot find 'Show tabs' button",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.id("org.wikipedia:id/article_menu_bookmark"),
-                "Cannot find 'Add this article to a reading list' button",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.id("org.wikipedia:id/onboarding_button"),
-                "Cannot find 'GOT IT' button",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[@text='Test list']"),
-                "Cannot find 'Test list'",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.ImageButton[@content-desc=\"Navigate up\"]"),
-                "Cannot find 'Navigate up' button",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.id("android:id/button2"),
-                "Cannot find 'NO THANKS' button",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.FrameLayout[@content-desc=\"Explore\"]/android.widget.ImageView"),
-                "Cannot find 'Explore' button",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.ImageView[@content-desc=\"Search Wikipedia\"]"),
-                "Cannot find element_to_init_search",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.id("org.wikipedia:id/recent_searches_list"),
-                "Cannot find 'java' in list",
-        5);
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[@index='1']//*[@text='High-level programming language']"),
-                "Cannot find 'High-level programming language' topic searching by 'Java'",
-                15);
-
-        MainPageObject.waitForElementAndClick(
-                By.id("org.wikipedia:id/article_menu_bookmark"),
-                "Cannot find 'Add this article to a reading list' button",
-                5);
-
-        // сохранение 2ой статьи в папку Test list
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[@text='Test list']"),
-                "Cannot find 'Test list'",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.id("org.wikipedia:id/snackbar_action"),
-                "Cannot find 'VIEW LIST' button",
-                5);
-
-        MainPageObject.swipeElementToLeft(
-                By.xpath("//*[@text='Object-oriented programming language']"),
-                "Cannot find 'Object-oriented programming language' topic in Test list");
-
-        MainPageObject.waitForElementNotPresent(
-                By.xpath("//*[@text='Object-oriented programming language']"),
-                "Cannot delete saved article",
-                5);
-
-        MainPageObject.waitForElementPresent(
-                By.xpath("//*[@text='High-level programming language']"),
-                "Cannot find 'High-level programming language' topic in Test list",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[@text='High-level programming language']"),
-                "Cannot click 'High-level programming language' topic in Test list",
-                5);
-
-        WebElement title_element = MainPageObject.waitForElementPresent(
-                By.xpath("//*[contains(@text, 'JavaScript')]"),
-                "Cannot find 'JavaScript' title",
-                15);
-
-        String article_title = title_element.getAttribute("text");
+        String article_subtitle = ArticlePageObject.getArticleSubtitle();
 
         Assert.assertEquals(
-                "We see unexpected title!",
-                "JavaScript",
-                article_title);
+                "We see unexpected subtitle!",
+                "High-level programming language",
+                article_subtitle);
 
     }
 
@@ -416,22 +288,13 @@ public class FirstTest extends CoreTestCase {
 
     @Test
     public void testEx4(){
-        MainPageObject.waitForElementAndClick(
-                By.id("org.wikipedia:id/fragment_onboarding_skip_button"),
-                "Cannot find 'Skip' button",
-                1);
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-                "Cannot find 'Search Wikipedia' field",
-                5);
+        SearchPageObject.skipClick();
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
 
         String search_value = "Java";
-        MainPageObject.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-                search_value,
-                "Cannot find search input",
-                5);
 
         List<WebElement> elements = driver.findElementsById("org.wikipedia:id/page_list_item_title");
         for (WebElement e : elements)
