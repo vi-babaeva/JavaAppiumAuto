@@ -71,7 +71,7 @@ public class ArticlePageObject extends MainPageObject {
 
         this.waitForElementAndSendKeys(
                 By.id(MY_LIST_NAME_INPUT),
-                "Test list",
+                name_of_folder,
                 "Cannot input title list",
                 5);
 

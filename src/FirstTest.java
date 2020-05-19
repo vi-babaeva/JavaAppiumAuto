@@ -102,7 +102,7 @@ public class FirstTest extends CoreTestCase {
 
         ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
         ArticlePageObject.waitForSubtitleElement();
-        String name_of_folder = "Test list";
+        String name_of_folder = "List";
         ArticlePageObject.addFirstArticleToMyList(name_of_folder);
 
         MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
