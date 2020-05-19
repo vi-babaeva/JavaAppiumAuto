@@ -130,32 +130,13 @@ public class FirstTest extends CoreTestCase {
 
     @Test
     public void testAmountOfNotEmptySearch(){
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text, 'SKIP')]"),
-                "Cannot find 'Skip' button",
-                1);
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.ImageView[@content-desc=\"Search Wikipedia\"]"),
-                "Cannot find element_to_init_search",
-                5);
-
+        SearchPageObject.skipClick();
+        SearchPageObject.initSearchInput();
         String search_line = "Linkin Park Discography";
-
-        MainPageObject.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-                search_line,
-                "Cannot find search input",
-                5);
-
-        String search_result_locator = "//*[@resource-id='org.wikipedia:id/search_results_list']//*[@resource-id='org.wikipedia:id/page_list_item_title']";
-        MainPageObject.waitForElementPresent(
-                By.xpath(search_result_locator),
-                "Cannot find anything by the request " +  search_line,
-                15);
-
-        int amount_of_search_results = MainPageObject.getAmountOfElements(
-                By.xpath(search_result_locator));
+        SearchPageObject.typeSearchLine(search_line);
+        int amount_of_search_results = SearchPageObject.getAmountOfFoundArticles();
 
         Assert.assertTrue(
                 "We found too few results!",
@@ -164,69 +145,28 @@ public class FirstTest extends CoreTestCase {
 
     @Test
     public void testAmountOfEmptySearch(){
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text, 'SKIP')]"),
-                "Cannot find 'Skip' button",
-                1);
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.ImageView[@content-desc=\"Search Wikipedia\"]"),
-                "Cannot find element_to_init_search",
-                5);
-
+        SearchPageObject.skipClick();
+        SearchPageObject.initSearchInput();
         String search_line = "hshdhdenneje";
-
-        MainPageObject.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-                search_line,
-                "Cannot find search input",
-                5);
-
-        String search_result_locator = "//*[@resource-id='org.wikipedia:id/search_results_list']//*[@resource-id='org.wikipedia:id/page_list_item_title']";
-        String empty_result_label = "//*[@text='No results found']";
-
-        MainPageObject.waitForElementPresent(
-                By.xpath(empty_result_label),
-                "Cannot find empty result label by the request " +  search_line,
-                15);
-
-        MainPageObject.assertElementNotPresent(
-                By.xpath(search_result_locator),
-                "We've found some results by request " + search_line);
+        SearchPageObject.typeSearchLine(search_line);
+        SearchPageObject.waitForEmptyResultsLabel();
+        SearchPageObject.assertThereIsNoResultOfSearch();
     }
 
     //Ex6
     @Test
     public void testAssertTitle(){
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[contains(@text, 'SKIP')]"),
-                "Cannot find 'Skip' button",
-                1);
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//android.widget.ImageView[@content-desc=\"Search Wikipedia\"]"),
-                "Cannot find element_to_init_search",
-                5);
-
+        SearchPageObject.skipClick();
+        SearchPageObject.initSearchInput();
         String search_line = "Java";
-
-        MainPageObject.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-                search_line,
-                "Cannot find search input",
-                5);
-
-        MainPageObject.waitForElementAndClick(
-                By.xpath("//*[@text='Object-oriented programming language']"),
-                "Cannot find 'Object-oriented programming language' topic searching by 'Java'",
-                15);
-
-        String search_result_locator = "//*[@text='Java (programming language)']";
-
-        MainPageObject.assertElementPresent(
-                By.xpath(search_result_locator),
-                "as title article by topic " + search_line);
-
+        SearchPageObject.typeSearchLine(search_line);
+        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        String title = "Java (programming language)";
+        SearchPageObject.assertTitle(title);
     }
 
     @Test
