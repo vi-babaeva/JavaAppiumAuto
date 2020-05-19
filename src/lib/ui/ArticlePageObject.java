@@ -7,8 +7,8 @@ import org.openqa.selenium.WebElement;
 public class ArticlePageObject extends MainPageObject {
 
     private static final String
-            SUBTITLE = "pagelib_edit_section_title_description",
-            FOOTER_ELEMENT = "org.wikipedia:id/page_external_link",
+            SUBTITLE = "pcs-edit-section-title-description",
+            FOOTER_ELEMENT = "//*[@text='View article in browser']",
             OPTIONS_BUTTON = "org.wikipedia:id/page_toolbar_button_show_overflow_menu",
             OPTIONS_ADD_TO_MY_LIST_BUTTON = "org.wikipedia:id/page_action_overflow_reading_lists",
             MORE_OPTIONS_BUTTON = "//android.widget.TextView[@content-desc=\"More options\"]",
@@ -38,7 +38,7 @@ public class ArticlePageObject extends MainPageObject {
     }
 
     public void swipeToFooter() {
-        this.swipeUpToFindElement(By.id(FOOTER_ELEMENT),
+        this.swipeUpToFindElement(By.xpath(FOOTER_ELEMENT),
                 "Cannot find the end of article",
                 20);
     }
