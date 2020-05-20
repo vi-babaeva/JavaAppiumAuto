@@ -7,7 +7,8 @@ import org.openqa.selenium.WebElement;
 public class ArticlePageObject extends MainPageObject {
 
     private static final String
-            SUBTITLE = "pcs-edit-section-title-description",
+            //SUBTITLE = "pcs-edit-section-title-description",
+            SUBTITLE = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[2]",
             FOOTER_ELEMENT = "//*[@text='View article in browser']",
             OPTIONS_BUTTON = "org.wikipedia:id/page_toolbar_button_show_overflow_menu",
             OPTIONS_ADD_TO_MY_LIST_BUTTON = "org.wikipedia:id/page_action_overflow_reading_lists",
@@ -28,8 +29,8 @@ public class ArticlePageObject extends MainPageObject {
 
     //здесь изменила title на subtitle, т.к. в текущей версии приложения title не имеет уникальных локаторов, а у subtitle есть уникальный id
     public WebElement waitForSubtitleElement(){
-        return this.waitForElementPresent(By.id(SUBTITLE),
-                "Cannot find article title on page", 10);
+        return this.waitForElementPresent(By.xpath(SUBTITLE),
+                "Cannot find article subtitle on page", 10);
     }
 
     public String getArticleSubtitle() {
