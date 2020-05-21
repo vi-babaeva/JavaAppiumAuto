@@ -101,7 +101,7 @@ public class SearchPageObject extends MainPageObject {
         String search_result_locator = getSearchResultTitleLocatorTpl(title);
 
         //проверила, что тест проходит, когда дождался появляения title
-        //this.waitForElementPresent(By.xpath(search_result_locator), "Error", 15);
+        this.waitForElementPresent(By.xpath(search_result_locator), "Error", 15);
 
         this.assertElementPresent(
                 By.xpath(search_result_locator),

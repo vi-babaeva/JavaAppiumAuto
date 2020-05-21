@@ -7,8 +7,7 @@ import org.openqa.selenium.WebElement;
 public class ArticlePageObject extends MainPageObject {
 
     private static final String
-            //SUBTITLE = "pcs-edit-section-title-description",
-            SUBTITLE = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[2]",
+            SUBTITLE = "//*[@resource-id='pcs-edit-section-title-description']",
             FOOTER_ELEMENT = "//*[@text='View article in browser']",
             OPTIONS_BUTTON = "org.wikipedia:id/page_toolbar_button_show_overflow_menu",
             OPTIONS_ADD_TO_MY_LIST_BUTTON = "org.wikipedia:id/page_action_overflow_reading_lists",
