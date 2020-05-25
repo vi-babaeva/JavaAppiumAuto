@@ -8,3 +8,6 @@ apks/.DS_Store
 *.class
 out/production/JavaAppiumAuto/FirstTest.class
 *.class
+*.json
+*.nib
+*.plist
