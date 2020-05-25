@@ -1,7 +1,6 @@
 package tests.iOS;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import junit.framework.TestCase;
 import org.openqa.selenium.ScreenOrientation;
@@ -23,7 +22,7 @@ public class iOSTestCase extends TestCase {
 
         capabilities.setCapability("platformName","iOS");
         capabilities.setCapability("deviceName","iPhone 11");
-        capabilities.setCapability("platformVersion","13.5");
+        capabilities.setCapability("platformVersion","13.1");
         capabilities.setCapability("app","/Users/qa/Desktop/JavaAppiumAuto/apks/Wikipedia.app");
         capabilities.setCapability("useNewWDA", "true");
 
