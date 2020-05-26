@@ -1,15 +1,14 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
 
 public class NavigationUI extends MainPageObject{
 
     private static final String
-            NAVIGATE_UP_BUTTON ="//android.widget.ImageButton[@content-desc=\"Navigate up\"]",
-            NO_THANKS_BUTTON = "android:id/button2",
-            VIEW_LIST_BUTTON = "org.wikipedia:id/snackbar_action",
-            EXPLORE_BUTTON = "//android.widget.FrameLayout[@content-desc=\"Explore\"]/android.widget.ImageView";
+            NAVIGATE_UP_BUTTON ="xpath://android.widget.ImageButton[@content-desc=\"Navigate up\"]",
+            NO_THANKS_BUTTON = "id:android:id/button2",
+            VIEW_LIST_BUTTON = "id:org.wikipedia:id/snackbar_action",
+            EXPLORE_BUTTON = "xpath://android.widget.FrameLayout[@content-desc=\"Explore\"]/android.widget.ImageView";
 
     public NavigationUI(AppiumDriver driver) {
         super(driver);
@@ -17,27 +16,22 @@ public class NavigationUI extends MainPageObject{
 
     public void goBackToAddNewArticle(String name_of_folder) {
 
-        this.waitForElementAndClick(
-                By.xpath(NAVIGATE_UP_BUTTON),
+        this.waitForElementAndClick(NAVIGATE_UP_BUTTON,
                 "Cannot find 'Navigate up' button",
                 5);
 
-        this.waitForElementAndClick(
-                By.id(NO_THANKS_BUTTON),
+        this.waitForElementAndClick(NO_THANKS_BUTTON,
                 "Cannot find 'NO THANKS' button",
                 5);
 
-        this.waitForElementAndClick(
-                By.xpath(EXPLORE_BUTTON),
+        this.waitForElementAndClick(EXPLORE_BUTTON,
                 "Cannot find 'Explore' button",
                 5);
     }
 
     public void goToMyList() {
-        this.waitForElementAndClick(
-                By.id(VIEW_LIST_BUTTON),
+        this.waitForElementAndClick(VIEW_LIST_BUTTON,
                 "Cannot find 'VIEW LIST' button",
                 5);
     }
-
 }

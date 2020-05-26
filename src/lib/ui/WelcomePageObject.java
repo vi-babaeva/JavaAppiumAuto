@@ -6,49 +6,44 @@ import org.openqa.selenium.By;
 public class WelcomePageObject extends MainPageObject {
 
     private static final String
-            STEP_THE_FREE_ENCYCLOPEDIA_TEXT = "///XCUIElementTypeStaticText[@name=\"The free encyclopedia\"]",
-            STEP_NEW_WAYS_TO_EXPLORE_TEXT = "//XCUIElementTypeStaticText[@name=\"New ways to explore\"]",
-            STEP_SEARCH_300_LANGUAGES_TEXT = "//XCUIElementTypeStaticText[@name=\"Search in nearly 300 languages\"]",
-            STEP_HELP_MAKE_TEXT = "//XCUIElementTypeStaticText[@name=\"Help make the app better\"]",
-            NEXT_LINK = "//XCUIElementTypeStaticText[@name=\"Next\"]" ,
-            GET_STARTED_BUTTON = "//XCUIElementTypeStaticText[@name=\"Get started\"]";
+            STEP_LEARN_MORE_LINK = "id:Learn more about Wikipedia",
+            STEP_NEW_WAYS_TO_EXPLORE_TEXT = "id:New ways to explore",
+            STEP_SEARCH_300_LANGUAGES_TEXT = "id:Search in nearly 300 languages",
+            STEP_HELP_MAKE_TEXT = "id:Help make the app better",
+            NEXT_LINK = "id:Next",
+            GET_STARTED_BUTTON = "id:Get started";
 
     public WelcomePageObject(AppiumDriver driver) {
         super(driver);
     }
 
     public void waitForMainTitle() {
-        this.waitForElementPresent(By.xpath(STEP_THE_FREE_ENCYCLOPEDIA_TEXT),
-                "Cannot find 'The free encyclopedia'", 10);
-    }
-
-    public void waitNextButton(){
-        this.waitForElementPresent(By.xpath(NEXT_LINK),
-                "Cannot find 'Next' link", 10);
+        this.waitForElementPresent(STEP_LEARN_MORE_LINK,
+                "Cannot find 'Learn more about Wikipedia'", 10);
     }
 
     public void clickNextButton(){
-        this.waitForElementAndClick(By.xpath(NEXT_LINK),
+        this.waitForElementAndClick(NEXT_LINK,
                 "Cannot find and click 'Next' link", 5);
     }
 
     public void waitForNewWaysToExploreText() {
-        this.waitForElementPresent(By.xpath(STEP_NEW_WAYS_TO_EXPLORE_TEXT),
+        this.waitForElementPresent(STEP_NEW_WAYS_TO_EXPLORE_TEXT,
                 "Cannot find 'New ways to explore'", 10);
     }
 
     public void waitForSubtitleAboutLanguages() {
-        this.waitForElementPresent(By.xpath(STEP_SEARCH_300_LANGUAGES_TEXT),
+        this.waitForElementPresent(STEP_SEARCH_300_LANGUAGES_TEXT,
                 "Cannot find 'Search in nearly 300 languages'", 10);
     }
 
     public void waitForHelpMakeTheAppBetterText() {
-        this.waitForElementPresent(By.xpath(STEP_HELP_MAKE_TEXT),
+        this.waitForElementPresent(STEP_HELP_MAKE_TEXT,
                 "Cannot find 'Help make the app better'", 10);
     }
 
     public void clickGetStartedButton(){
-        this.waitForElementAndClick(By.xpath(GET_STARTED_BUTTON),
+        this.waitForElementAndClick(GET_STARTED_BUTTON,
                 "Cannot find and click 'Get started' button", 5);
     }
 }

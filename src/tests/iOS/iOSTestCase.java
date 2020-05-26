@@ -21,8 +21,8 @@ public class iOSTestCase extends TestCase {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         capabilities.setCapability("platformName","iOS");
-        capabilities.setCapability("deviceName","iPhone 11");
-        capabilities.setCapability("platformVersion","13.1");
+        capabilities.setCapability("deviceName","iPhone 8");
+        capabilities.setCapability("platformVersion","13.5");
         capabilities.setCapability("app","/Users/qa/Desktop/JavaAppiumAuto/apks/Wikipedia.app");
         capabilities.setCapability("useNewWDA", "true");
 
