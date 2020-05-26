@@ -11,3 +11,5 @@ out/production/JavaAppiumAuto/FirstTest.class
 *.json
 *.nib
 *.plist
+*.strings
+*.stringsdict
