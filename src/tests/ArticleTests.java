@@ -3,6 +3,7 @@ package tests;
 import lib.CoreTestCase;
 import lib.ui.ArticlePageObject;
 import lib.ui.SearchPageObject;
+import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 
@@ -17,7 +18,7 @@ public class ArticleTests extends CoreTestCase {
         SearchPageObject.typeSearchLine("Java");
         SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
 
-        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForSubtitleElement();
         String article_subtitle = ArticlePageObject.getArticleSubtitle();
 
@@ -33,10 +34,10 @@ public class ArticleTests extends CoreTestCase {
 
         SearchPageObject.skipClick();
         SearchPageObject.initSearchInput();
-        SearchPageObject.typeSearchLine("Neirone");
-        SearchPageObject.clickByArticleWithSubstring("Comune in Liguria, Italy");
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
 
-        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForSubtitleElement();
         ArticlePageObject.swipeToFooter();
     }

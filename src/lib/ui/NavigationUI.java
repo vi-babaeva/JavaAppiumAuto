@@ -2,13 +2,16 @@ package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
 
-public class NavigationUI extends MainPageObject{
+abstract public class NavigationUI extends MainPageObject{
 
-    private static final String
-            NAVIGATE_UP_BUTTON ="xpath://android.widget.ImageButton[@content-desc=\"Navigate up\"]",
-            NO_THANKS_BUTTON = "id:android:id/button2",
-            VIEW_LIST_BUTTON = "id:org.wikipedia:id/snackbar_action",
-            EXPLORE_BUTTON = "xpath://android.widget.FrameLayout[@content-desc=\"Explore\"]/android.widget.ImageView";
+    protected static String
+            NAVIGATE_UP_BUTTON,
+            NO_THANKS_BUTTON,
+            VIEW_LIST_BUTTON,
+            EXPLORE_BUTTON,
+            BACK_BUTTON,
+            CANCEL_BUTTON,
+            CLOSE_POPUP_ICON;
 
     public NavigationUI(AppiumDriver driver) {
         super(driver);
@@ -32,6 +35,24 @@ public class NavigationUI extends MainPageObject{
     public void goToMyList() {
         this.waitForElementAndClick(VIEW_LIST_BUTTON,
                 "Cannot find 'VIEW LIST' button",
+                5);
+    }
+
+    public void backToSearchList(){
+        this.waitForElementAndClick(BACK_BUTTON,
+                "Cannot find 'Back' button",
+                5);
+    }
+
+    public void clickOnCancelButton(){
+        this.waitForElementAndClick(CANCEL_BUTTON,
+                "Cannot find 'Cancel' button",
+                5);
+    }
+
+    public void closeSyncSavedArticlesPopUp() {
+        this.waitForElementAndClick(CLOSE_POPUP_ICON,
+                "Cannot find 'Cancel' icon",
                 5);
     }
 }

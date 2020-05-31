@@ -1,15 +1,16 @@
 package tests;
 
 import lib.CoreTestCase;
-import lib.ui.ArticlePageObject;
-import lib.ui.MyListsPageObject;
-import lib.ui.NavigationUI;
-import lib.ui.SearchPageObject;
+import lib.Platform;
+import lib.ui.*;
+import lib.ui.factories.ArticlePageObjectFactory;
+import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 
 public class MyListsTest extends CoreTestCase {
 
+    private static final String name_of_folder = "Learning programming";
     @Test
     public void testSaveTwoArticlesToTestListAndDeleteOneArticle(){
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -19,25 +20,35 @@ public class MyListsTest extends CoreTestCase {
         SearchPageObject.typeSearchLine("Java");
         SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
 
-        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForSubtitleElement();
-        String name_of_folder = "List";
-        ArticlePageObject.addFirstArticleToMyList(name_of_folder);
 
-        MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
-        MyListsPageObject.openFolderByName(name_of_folder);
+        if (Platform.getInstance().isAndroid()) {
+            ArticlePageObject.addFirstArticleToMyList(name_of_folder);
+            MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
+            MyListsPageObject.openFolderByName(name_of_folder);
+            NavigationUI NavigationUI = NavigationUIFactory.get(driver);
+            NavigationUI.goBackToAddNewArticle(name_of_folder);
 
-        NavigationUI NavigationUI = new NavigationUI(driver);
-        NavigationUI.goBackToAddNewArticle(name_of_folder);
-
-        SearchPageObject.initSearchInput();
-        SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.clickByArticleWithSubstring("High-level programming language");
-        ArticlePageObject.addSecondArticleToMyList(name_of_folder);
-        MyListsPageObject.openFolderByName(name_of_folder);
-        NavigationUI.goToMyList();
-        ArticlePageObject.swipeToDeleteOneArticleAndCheckIt();
-
+            SearchPageObject.initSearchInput();
+            SearchPageObject.typeSearchLine("Java");
+            SearchPageObject.clickByArticleWithSubstring("High-level programming language");
+            ArticlePageObject.addSecondArticleToMyList(name_of_folder);
+            MyListsPageObject.openFolderByName(name_of_folder);
+            NavigationUI.goToMyList();
+        } else {
+            ArticlePageObject.addArticlesToMySaved();
+            NavigationUI NavigationUI = NavigationUIFactory.get(driver);
+            NavigationUI.backToSearchList();
+            SearchPageObject.clickByArticleWithSubstring("High-level programming language");
+            ArticlePageObject.addArticlesToMySaved();
+            NavigationUI.backToSearchList();
+            NavigationUI.clickOnCancelButton();
+            NavigationUI.goToMyList();
+            NavigationUI.closeSyncSavedArticlesPopUp();
+        }
+        ArticlePageObject.swipeToDeleteOneArticle();
+        ArticlePageObject.checkThatOneArticleWasDeleted();
         String article_subtitle = ArticlePageObject.getArticleSubtitle();
 
         assertEquals(
