@@ -2,6 +2,7 @@ package tests;
 
 import lib.CoreTestCase;
 import lib.ui.SearchPageObject;
+import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 
@@ -11,15 +12,17 @@ public class SearchTests extends CoreTestCase {
 
     @Test
     public void testHomeworkCancelSearch(){
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.skipClick();
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Android");
         SearchPageObject.waitForSearchResult("Wikipedia list");
 
-        assertTrue( "Less than 3 articles found",
-                driver.findElementsById("org.wikipedia:id/page_list_item_title").size()>2);
+        int amount_of_search_results = SearchPageObject.getAmountOfFoundArticles();
+        assertTrue(
+                "Less than 3 articles found",
+                amount_of_search_results > 2 );
 
         SearchPageObject.waitForCancelButtonToAppear();
         SearchPageObject.clickCancelSearch();
@@ -28,7 +31,7 @@ public class SearchTests extends CoreTestCase {
 
     @Test
     public void testSearch(){
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.skipClick();
         SearchPageObject.initSearchInput();
@@ -38,7 +41,7 @@ public class SearchTests extends CoreTestCase {
 
     @Test
     public void testCancelSearch(){
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.skipClick();
         SearchPageObject.initSearchInput();
@@ -50,7 +53,7 @@ public class SearchTests extends CoreTestCase {
 
     @Test
     public void testAmountOfNotEmptySearch(){
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.skipClick();
         SearchPageObject.initSearchInput();
@@ -65,7 +68,7 @@ public class SearchTests extends CoreTestCase {
 
     @Test
     public void testAmountOfEmptySearch(){
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.skipClick();
         SearchPageObject.initSearchInput();
@@ -77,7 +80,7 @@ public class SearchTests extends CoreTestCase {
 
     @Test
     public void testEx4(){
-        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.skipClick();
         SearchPageObject.initSearchInput();
